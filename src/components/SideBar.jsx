@@ -5,7 +5,7 @@ const SideBar = ({ selectedTab, setSelectedTab }) => {
   return (
     <div
       className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar"
-      style={{ width: "280px" }}
+      style={{ width: "200px" }}
     >
       <a
         href="/"
@@ -46,7 +46,7 @@ const SideBar = ({ selectedTab, setSelectedTab }) => {
           </a>
         </li>
         {/* <li>
-          <a href="#" class="nav-link text-white">
+          <a href="#" className="nav-link text-white">
             <svg className="bi pe-none me-2" width="16" height="16">
               <use xlinkHref="#table"></use>
             </svg>
