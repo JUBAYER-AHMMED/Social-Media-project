@@ -4,6 +4,8 @@ export const PostListContext = createContext({
   postList: [],
   addPost: () => {},
   deletePost: () => {},
+  getReactions: () => {},
+  addInitialPosts: () => {},
 });
 
 const reducer = (CurrPostList, action) => {
@@ -14,6 +16,8 @@ const reducer = (CurrPostList, action) => {
     NewList = CurrPostList.filter(
       (EachObj) => EachObj.id !== action.payload.id
     );
+  } else if (action.type === "ADD_INITIAL_POST") {
+    NewList = CurrPostList.length === 0 ? action.payload.posts : CurrPostList;
   }
 
   return NewList;
@@ -22,8 +26,13 @@ const reducer = (CurrPostList, action) => {
 const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(reducer, []);
 
+  let reactions;
+  const getReactions = (react) => {
+    reactions = react;
+  };
   const addPost = (userId, title, body, tags) => {
     let NewId = postList.length > 0 ? postList[postList.length - 1].id + 1 : 1;
+
     let newObject = {
       type: "ADD",
       payload: {
@@ -31,6 +40,7 @@ const PostListProvider = ({ children }) => {
         userId: userId,
         title: title,
         body: body,
+        reactions: reactions,
         tags: tags,
       },
     };
@@ -45,8 +55,19 @@ const PostListProvider = ({ children }) => {
     });
   };
 
+  const addInitialPosts = (posts) => {
+    dispatchPostList({
+      type: "ADD_INITIAL_POST",
+      payload: {
+        posts,
+      },
+    });
+  };
+
   return (
-    <PostListContext.Provider value={{ postList, addPost, deletePost }}>
+    <PostListContext.Provider
+      value={{ postList, addPost, deletePost, getReactions, addInitialPosts }}
+    >
       {children}
     </PostListContext.Provider>
   );

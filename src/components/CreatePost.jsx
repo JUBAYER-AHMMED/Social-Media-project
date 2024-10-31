@@ -17,7 +17,16 @@ const CreatePost = ({ setSelectedTab }) => {
     const tags = tagsElement.current.value.split(" ");
 
     addPost(userid, title, body, tags);
+
     setSelectedTab("Home");
+
+    /*
+    //No need this as i am switching the tab to Home 
+    useridElement.current.value = "";
+    titleElement.current.value = "";
+    bodyElement.current.value = "";
+    tagsElement.current.value = "";
+    */
   };
 
   return (
