@@ -18,6 +18,7 @@ const reducer = (CurrPostList, action) => {
     );
   } else if (action.type === "ADD_INITIAL_POST") {
     NewList = CurrPostList.length === 0 ? action.payload.posts : CurrPostList;
+    // NewList = action.payload.posts;
   }
 
   return NewList;
